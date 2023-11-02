@@ -1,6 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy import (UniqueConstraint, Column, Integer, String, Float, Boolean, Date, ForeignKey)
 
+from sqlalchemy.orm import relationship, backref
+
+
 from sqlalchemy.ext.declarative import declarative_base
 
 engine = create_engine('sqlite:///transport_hub.db')
@@ -37,4 +40,5 @@ class Car(Base):
     daily_rental_fee = Column(Float(precision=2))
     monthly_rental_fee = Column(Float(precision=2))
     availability = Column(Boolean)
-    driver_id=Column(Integer, ForeignKey(''))
+    driver_id=Column(Integer, ForeignKey('drivers.id'))
+    driver = relationship('Driver', backref=backref('car', uselist=False))
