@@ -20,8 +20,8 @@ session=Session()
 @click.option("--car_mileage", prompts="Enter mileage in Kms: ")
 @click.option("--fuel_type", prompts="Enter fuel_type: ")
 @click.option("--seat_capacity", prompts=int("Enter number of seats: "))
-@click.option("--daily_rental_fee", int(prompts="Enter daily fee: "))
-@click.option("--monthly_rental_fee", int(prompts="Enter monthly fee: "))
+@click.option("--daily_rental_fee", float(prompts="Enter daily fee: "))
+@click.option("--monthly_rental_fee", float(prompts="Enter monthly fee: "))
 @click.option("--availability", bool(prompts="Available immediately: "))
 @click.option("--driver_id", int(prompts="Enter driver ID: "))
 
@@ -34,6 +34,8 @@ def create_car(model, make, year, color, licence_plate, car_mileage, fuel_type, 
         color=color,
         licence_plate=licence_plate,
         car_mileage=car_mileage,
+        fuel_type=fuel_type,
+        seat_capacity=seat_capacity,
         daily_rental_fee=daily_rental_fee,
         monthly_rental_fee=monthly_rental_fee,
         availability=availability,
