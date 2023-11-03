@@ -30,12 +30,13 @@ print(find_all_available_cars())
 
 #count all available/unavailable cars
 def find_number_of_available_cars(x):
-    available_cars_count = session.query(func.count(Car.id)).filter(Car.availability == 1).scalar()
-    unavailable_cars_count = session.query(func.count(Car.id)).filter(Car.availability == 0).scalar()
     
     if x == 0:
+        unavailable_cars_count = session.query(func.count(Car.id)).filter(Car.availability == 0).scalar()
         return f"{unavailable_cars_count} cars currently unavailable"
+    
     else:
+        available_cars_count = session.query(func.count(Car.id)).filter(Car.availability == 1).scalar()
         return f"{available_cars_count} cars currently available"
 
 print(find_number_of_available_cars(1))
