@@ -26,9 +26,9 @@ class Driver(Base):
     reviews = relationship('Driver_Review', backref=backref('driver'))
     
     def __repr__(self):
-        return f"Driver(id={self.id}, " + \
+        return f"Driver {self.id}, " + \
             f"name={self.name}, " + \
-            f"years_of_experience = {self.years_of_experience})"
+            f"years_of_experience = {self.years_of_experience}"
         
     
 class Car(Base):
@@ -51,11 +51,11 @@ class Car(Base):
     driver = relationship('Driver', backref=backref('car', uselist=False))
     
     def __repr__(self):
-        return f"Car(id={self.id}, " + \
+        return f"Car {self.id}, " + \
             f"make={self.make}, " + \
             f"model={self.model}, " + \
             f"licence_plate = {self.licence_plate}, " + \
-            f"driver_id = {self.driver_id})"
+            f"driver_id = {self.driver_id}"
                                         
 
 class Driver_Review(Base):
@@ -68,6 +68,6 @@ class Driver_Review(Base):
     driver_id = Column(Integer, ForeignKey('drivers.id'))
     
     def __repr__(self):
-        return f'Driver_Review(id={self.id}, ' + \
+        return f'Driver_Review {self.id}, ' + \
             f'rating={self.rating}, ' + \
-            f'driver_id={self.driver_id})'
+            f'driver_id={self.driver_id}'
