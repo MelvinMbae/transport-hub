@@ -35,7 +35,7 @@ def createDriver():
             session.add(driver1)
             session.commit()
             
-            print(f"Driver {name} with {years_of_experience} years experience added to database")
+            click.echo(f"Driver {name} with {years_of_experience} years experience added to database")
             
         create_driver()
 

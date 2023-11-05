@@ -18,15 +18,11 @@ def get_all_cars():
     for car in cars:
         print(car)
 
-get_all_cars()
-
 # method to return all available cars
 def find_all_available_cars():
     cars = session.query(Car)
     available_cars = cars.filter(Car.availability == 1).all()
-    return available_cars
-
-print(find_all_available_cars())
+    print(available_cars)
 
 #count all available/unavailable cars
 def find_number_of_available_cars(x):
@@ -39,14 +35,14 @@ def find_number_of_available_cars(x):
         available_cars_count = session.query(func.count(Car.id)).filter(Car.availability == 1).scalar()
         return f"{available_cars_count} cars currently available"
 
-print(find_number_of_available_cars(1))
+# print(find_number_of_available_cars(1))
 
 # find car a particular by the driver id
 def find_car_by_driver_id(n):
     car = session.query(Car.make).filter(Car.driver_id == n).first()
     return car
 
-print(find_car_by_driver_id(2))
+# print(find_car_by_driver_id(2))
 
 # monthly revenue of the cars in our db
 def monthly_revenue():
@@ -55,12 +51,12 @@ def monthly_revenue():
     revenue_on_unavailable_cars = session.query(func.sum(Car.monthly_rental_fee)).filter(Car.availability==0).scalar()
     return f"Potential revenue on all cars is Kshs.{revenue_on_all_cars} but we are only raking in Kshs.{revenue_on_available_cars}. We are missing Kshs.{revenue_on_unavailable_cars}"
 
-print(monthly_revenue())
+# print(monthly_revenue())
 
 def sort_by_daily_rental_fee():
     return session.query(Car).order_by(Car.daily_rental_fee).all()
 
-print(sort_by_daily_rental_fee())
+# print(sort_by_daily_rental_fee())
 
 # Delete a car from the Data base
 def remove_car(car_id):
@@ -71,7 +67,7 @@ def remove_car(car_id):
     else:
         print("No such car exists.")
     
-remove_car(50)
+# remove_car(50)
 
 
 #Driver Methods
@@ -81,13 +77,12 @@ def get_all_drivers():
     for driver in drivers:
         print(driver)
 
-get_all_drivers()
 
 # sorting our drivers by their years of experience
 def sort_by_experience():
     return session.query(Driver).order_by(Driver.years_of_experience).all()
 
-print(sort_by_experience())
+# print(sort_by_experience())
 
 def remove_driver(driver_id):
     driver = session.query(Driver).filter(Driver.id == driver_id).first()
@@ -97,5 +92,5 @@ def remove_driver(driver_id):
     else:
         print("No such driver exists.")
     
-remove_driver(50)
+# remove_driver(50)
 

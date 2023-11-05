@@ -47,10 +47,10 @@ def createCar():
             session.add(car1)
             session.commit()
             
-            print(f"{model}, {make} created")
+            click.echo(f"{model}, {make} successfully created")
             
         create_car()
         
     except Exception as e:
-        print("Could not create car: \n", e)
+        click.echo("Could not create car: \n", e)
 
