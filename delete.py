@@ -12,11 +12,9 @@ Are you sure you want to proceed(Y/N)?
 
 def warning_prompt(input):
     if input == "Y":     
-        delete_from_db()
-        
+        delete_from_db()        
     elif input == "N":
-        click.echo("Process exited")
-        
+        click.echo("Process exited")        
     else:
         click.echo("Invalid Option Selected")
         
@@ -35,8 +33,8 @@ Select Task: (eg. Select as 1, 2...)
             
         case "2":
             driver_id=int(input("What driver do you want to delete eg.1,2,3 ? "))
-            remove_driver(driver_id)       
-        
+            remove_driver(driver_id)
+            
 warning_prompt()
 
        
