@@ -74,6 +74,11 @@ def sort_by_daily_rental_fee_desc():
     
     for car in cars:
         print(f"{car.model} {car.make}, Car ID {car.id} daily rental fee is Kshs.{car.daily_rental_fee}")
+        
+def get_cars_by_fuel_type(fuel_type):
+    cars = session.query(Car.id, Car.make).filter(Car.fuel_type == fuel_type).all()
+    for car in cars:
+        print(f"Car{car.id}: {car.make}")
 
 # Delete a car from the Data base
 def remove_car(car_id):

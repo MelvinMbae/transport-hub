@@ -3,6 +3,7 @@ from main import sort_by_daily_rental_fee_desc
 from main import find_all_available_cars
 from main import sort_by_driver_ratings
 from main import sort_by_experience
+from main import get_cars_by_fuel_type
 
 
 import click
@@ -15,11 +16,12 @@ import click
 3. Filter by availability
 4. Filter by average driver rating(Highest to Lowest)
 5. Filter by years of experience(Highest to Lowest)
+6. Filter by fuel type
 
 Select preferred option (1, 2):
 """)
 
-def filter_by_rental_fee(option):
+def filter(option):
     match option:
         case "1":    
             sort_by_daily_rental_fee_asc()
@@ -31,5 +33,12 @@ def filter_by_rental_fee(option):
             sort_by_driver_ratings()    
         case "5":
             sort_by_experience()
+        case "6":
+            select_fuel_type()
             
-filter_by_rental_fee()
+def select_fuel_type():
+    selected_option = input("Select preferred option (Petrol, Diesel, Electric, Hybrid, Gas: ")
+    get_cars_by_fuel_type(selected_option)
+        
+                               
+filter()
