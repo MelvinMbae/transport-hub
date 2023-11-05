@@ -14,6 +14,7 @@ session=Session()
 # method to print all cars in our db
 def get_all_cars():
     cars = session.query(Car).all()
+    
     for car in cars:
         print(car)
 
@@ -21,6 +22,7 @@ def get_all_cars():
 def find_all_available_cars():
     cars = session.query(Car)
     available_cars = cars.filter(Car.availability == 1).all()
+    
     for available_car in available_cars:
         print(available_car)
 
@@ -39,10 +41,10 @@ def find_number_of_available_cars(x):
 def find_car_by_driver_id(n):
     car = session.query(Car.make, Car.model, Car.color, Car.licence_plate).filter(Car.driver_id == n).first()
     print(f"""
-          Car make: {car.make}
-          model{car.model}
-          color:{car.color}
-          plate no:{car.licence_plate}""")
+Car make: {car.make}
+model{car.model}
+color:{car.color}
+plate no:{car.licence_plate}""")
 
 # monthly revenue of the cars in our db
 def potential_monthly_revenue():
@@ -127,6 +129,8 @@ def sort_by_driver_ratings():
     for driver in drivers:
         driver_id, average_rating = driver
         print(f"Driver ID: {driver_id}, Average Rating: {round(average_rating,2)}")
+        
+# Delete a review
         
         
 
