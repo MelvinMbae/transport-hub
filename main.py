@@ -61,7 +61,7 @@ def sort_by_daily_rental_fee_asc():
         print(f"{Car.id} daily rental fee is Kshs.{daily_fee}")
 
 def sort_by_daily_rental_fee_desc():
-    daily_fee_descending = session.query(Car).order_by(Car.daily_rental_fee).desc().all()
+    daily_fee_descending = session.query(Car).order_by(desc(Car.daily_rental_fee)).all()
     for daily_fee in daily_fee_descending:
         print(f"{Car.id} daily rental fee is Kshs.{daily_fee}")
 
@@ -98,3 +98,10 @@ def remove_driver(driver_id):
     
 # remove_driver(50)
 
+# Review Methods
+
+def get_rating_by_driver_id(drider_id):
+    ratings = session.query(Driver_Review.rating, Driver_Review.comment).filter(Driver_Review.driver_id == drider_id).all()
+    for rating in ratings:
+        print(rating)
+    
