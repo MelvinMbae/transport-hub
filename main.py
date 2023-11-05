@@ -39,7 +39,7 @@ def find_number_of_available_cars(x):
 # find car a particular by the driver id
 def find_car_by_driver_id(n):
     car = session.query(Car.make).filter(Car.driver_id == n).first()
-    return car
+    print(car)
 
 # monthly revenue of the cars in our db
 def potential_monthly_revenue():
@@ -83,9 +83,9 @@ def get_all_drivers():
 
 # sorting our drivers by their years of experience
 def sort_by_experience():
-    years_of_exp_asc = session.query(Driver).order_by(Driver.years_of_experience).all()
+    years_of_exp_asc = session.query(Driver).order_by(desc(Driver.years_of_experience)).all()
     for years in years_of_exp_asc:
-        print(f"Driver {Driver.id}: {Driver.name} has an experience of {years}")
+        print(f"Driver {years.id}: {years.name} has an experience of {years.years_of_experience}")
 
 # Delete driver by ID
 def remove_driver(driver_id):
@@ -99,7 +99,6 @@ def remove_driver(driver_id):
 # remove_driver(50)
 
 # Review Methods
-
 def get_rating_by_driver_id(driver_id):
     ratings = session.query(Driver_Review.rating, Driver_Review.comment).filter(Driver_Review.driver_id == driver_id).all()
     for rating in ratings:
