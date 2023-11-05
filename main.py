@@ -22,7 +22,8 @@ def get_all_cars():
 def find_all_available_cars():
     cars = session.query(Car)
     available_cars = cars.filter(Car.availability == 1).all()
-    print(available_cars)
+    for available_car in available_cars:
+        print(available_car)
 
 #count all available/unavailable cars
 def find_number_of_available_cars(x):
@@ -49,14 +50,10 @@ def monthly_revenue():
     revenue_on_all_cars = session.query(func.sum(Car.monthly_rental_fee)).scalar()
     revenue_on_available_cars = session.query(func.sum(Car.monthly_rental_fee)).filter(Car.availability==1).scalar()
     revenue_on_unavailable_cars = session.query(func.sum(Car.monthly_rental_fee)).filter(Car.availability==0).scalar()
-    return f"Potential revenue on all cars is Kshs.{revenue_on_all_cars} but we are only raking in Kshs.{revenue_on_available_cars}. We are missing Kshs.{revenue_on_unavailable_cars}"
-
-# print(monthly_revenue())
+    print(f"Potential revenue on all cars is Kshs.{revenue_on_all_cars} but we are only raking in Kshs.{revenue_on_available_cars}. We are missing Kshs.{revenue_on_unavailable_cars}")
 
 def sort_by_daily_rental_fee():
     return session.query(Car).order_by(Car.daily_rental_fee).all()
-
-# print(sort_by_daily_rental_fee())
 
 # Delete a car from the Data base
 def remove_car(car_id):
@@ -67,9 +64,6 @@ def remove_car(car_id):
     else:
         print("No such car exists.")
     
-# remove_car(50)
-
-
 #Driver Methods
 #getting all our drivers
 def get_all_drivers():

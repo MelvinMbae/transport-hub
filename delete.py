@@ -27,14 +27,15 @@ def delete_from_db():
 
 Select Task: (eg. Select as 1, 2...)
 """)
+    
     match task:
         case "1":
             car_id=int(input("What car do you want to delete eg.1,2,3 ? "))
             remove_car(car_id)
-            click.echo_via_pager
+            
         case "2":
             driver_id=int(input("What driver do you want to delete eg.1,2,3 ? "))
-            remove_driver(driver_id)        
+            remove_driver(driver_id)       
         
 warning_prompt()
 
