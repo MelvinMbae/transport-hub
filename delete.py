@@ -3,17 +3,17 @@ from main import remove_driver, remove_car
 
 @click.command()
 
-@click.option("--input", prompt="""
+@click.option("--selection", prompt="""
 Y. Yes
 N. No
 
 Are you sure you want to proceed(Y/N)?
 """)
 
-def warning_prompt(input):
-    if input == "Y":     
+def warning_prompt(selection):
+    if selection == "Y":     
         delete_from_db()        
-    elif input == "N":
+    elif selection == "N":
         click.echo("Process exited")        
     else:
         click.echo("Invalid Option Selected")

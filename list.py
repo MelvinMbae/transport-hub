@@ -1,12 +1,12 @@
 import click
-from main import get_all_drivers, get_all_cars, find_all_available_cars
+from main import get_all_drivers
 from main import get_all_cars
 from main import find_all_available_cars
 
 
 @click.command()
 
-@click.option("--option", prompt="""
+@click.option("--optio", prompt="""
 1. Give me a List of all Drivers
 2. Give me a List of all Cars
 3. Give me a List of all Available Cars

@@ -2,7 +2,7 @@ from models import Driver, Driver_Review, Car
 
 from sqlalchemy.orm import sessionmaker
 
-from sqlalchemy import create_engine, func, desc
+from sqlalchemy import create_engine, func, desc, text
 
 engine = create_engine('sqlite:///transport_hub.db')
 
@@ -56,14 +56,14 @@ def monthly_revenue_lost_on_unavailable_cars():
 
 # Filter by fee
 def sort_by_daily_rental_fee_asc():
-    daily_fee_ascending = session.query(Car).order_by(Car.daily_rental_fee).all()
-    for daily_fee in daily_fee_ascending:
-        print(f"{Car.id} daily rental fee is Kshs.{daily_fee}")
+    cars = session.query(Car.id, Car.model, Car.make, Car.daily_rental_fee, Car.availability).order_by(Car.daily_rental_fee).filter(Car.availability ==1).all()
+    for car in cars:
+        print(f"{car.model}{car.make}, Car ID {car.id} daily rental fee is Kshs.{car.daily_rental_fee}")
 
 def sort_by_daily_rental_fee_desc():
-    daily_fee_descending = session.query(Car).order_by(desc(Car.daily_rental_fee)).all()
-    for daily_fee in daily_fee_descending:
-        print(f"{Car.id} daily rental fee is Kshs.{daily_fee}")
+    cars = session.query(Car.id, Car.model, Car.make, Car.daily_rental_fee,Car.availability).order_by(desc(Car.daily_rental_fee)).filter(Car.availability ==1).all()
+    for car in cars:
+        print(f"{car.model} {car.make}, Car ID {car.id} daily rental fee is Kshs.{car.daily_rental_fee}")
 
 # Delete a car from the Data base
 def remove_car(car_id):
@@ -100,8 +100,22 @@ def remove_driver(driver_id):
 
 # Review Methods
 
-def get_rating_by_driver_id(drider_id):
-    ratings = session.query(Driver_Review.rating, Driver_Review.comment).filter(Driver_Review.driver_id == drider_id).all()
+def get_rating_by_driver_id(driver_id):
+    ratings = session.query(Driver_Review.rating, Driver_Review.comment).filter(Driver_Review.driver_id == driver_id).all()
     for rating in ratings:
         print(rating)
+        
+def sort_by_driver_ratings():
+    drivers = session.query(
+        Driver_Review.driver_id,
+        func.avg(Driver_Review.rating).label("average_rating")
+        ).group_by(Driver_Review.driver_id).order_by(desc(text("average_rating"))).all()
+    
+    for driver in drivers:
+        driver_id, average_rating = driver
+        print(f"Driver ID: {driver_id}, Average Rating: {round(average_rating,2)}")
+        
+        
+
+        
     

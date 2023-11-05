@@ -9,7 +9,7 @@ from create_car import createCar
 1. Create a Driver
 2. Create a Car
 
-Select Task:
+Select Task (eg. Select as 1, 2...):
 """)
 
 def main(task):
