@@ -11,7 +11,6 @@ Session = sessionmaker(bind=engine)
 session=Session()
 
 #CAR METHODS
-
 # method to print all cars in our db
 def get_all_cars():
     cars = session.query(Car).all()
@@ -38,8 +37,12 @@ def find_number_of_available_cars(x):
 
 # find car a particular by the driver id
 def find_car_by_driver_id(n):
-    car = session.query(Car.make).filter(Car.driver_id == n).first()
-    print(car)
+    car = session.query(Car.make, Car.model, Car.color, Car.licence_plate).filter(Car.driver_id == n).first()
+    print(f"""
+          Car make: {car.make}
+          model{car.model}
+          color:{car.color}
+          plate no:{car.licence_plate}""")
 
 # monthly revenue of the cars in our db
 def potential_monthly_revenue():
@@ -47,7 +50,8 @@ def potential_monthly_revenue():
     print(f"Potential revenue on all cars is Kshs.{revenue_on_all_cars}")
     
 def monthly_revenue_on_available_cars():
-    revenue_on_available_cars = session.query(func.sum(Car.monthly_rental_fee)).filter(Car.availability==1).scalar()
+    revenue_on_available_cars = session.query(func.sum(Car.monthly_rental_fee)
+        ).filter(Car.availability==1).scalar()
     print(f"Potential revenue on available cars is Kshs.{revenue_on_available_cars}")
      
 def monthly_revenue_lost_on_unavailable_cars():
@@ -56,54 +60,64 @@ def monthly_revenue_lost_on_unavailable_cars():
 
 # Filter by fee
 def sort_by_daily_rental_fee_asc():
-    cars = session.query(Car.id, Car.model, Car.make, Car.daily_rental_fee, Car.availability).order_by(Car.daily_rental_fee).filter(Car.availability ==1).all()
+    cars = session.query(Car.id, Car.model, Car.make, Car.daily_rental_fee, Car.availability
+        ).order_by(Car.daily_rental_fee).filter(Car.availability ==1).all()
+    
     for car in cars:
         print(f"{car.model}{car.make}, Car ID {car.id} daily rental fee is Kshs.{car.daily_rental_fee}")
 
 def sort_by_daily_rental_fee_desc():
-    cars = session.query(Car.id, Car.model, Car.make, Car.daily_rental_fee,Car.availability).order_by(desc(Car.daily_rental_fee)).filter(Car.availability ==1).all()
+    cars = session.query(Car.id, Car.model, Car.make, Car.daily_rental_fee,Car.availability
+        ).order_by(desc(Car.daily_rental_fee)).filter(Car.availability ==1).all()
+    
     for car in cars:
         print(f"{car.model} {car.make}, Car ID {car.id} daily rental fee is Kshs.{car.daily_rental_fee}")
 
 # Delete a car from the Data base
 def remove_car(car_id):
     car = session.query(Car).filter(Car.id == car_id).first()
+    
     if car:
         session.delete(car)
         session.commit()
     else:
         print("No such car exists.")
     
-#Driver Methods
+#DRIVER METHODS
 #getting all our drivers
 def get_all_drivers():
     drivers = session.query(Driver).all()
+    
     for driver in drivers:
         print(driver)
 
 # sorting our drivers by their years of experience
 def sort_by_experience():
     years_of_exp_asc = session.query(Driver).order_by(desc(Driver.years_of_experience)).all()
+    
     for years in years_of_exp_asc:
-        print(f"Driver {years.id}: {years.name} has an experience of {years.years_of_experience}")
+        print(f"Driver {years.id}: {years.name} has an experience of {years.years_of_experience} years")
 
 # Delete driver by ID
 def remove_driver(driver_id):
     driver = session.query(Driver).filter(Driver.id == driver_id).first()
+    
     if driver:
         session.delete(driver)
         session.commit()
     else:
         print("No such driver exists.")
     
-# remove_driver(50)
-
-# Review Methods
+# REVIEW METHODS
+# get a driver rating by the driver_id
 def get_rating_by_driver_id(driver_id):
-    ratings = session.query(Driver_Review.rating, Driver_Review.comment).filter(Driver_Review.driver_id == driver_id).all()
+    ratings = session.query(Driver_Review.rating, Driver_Review.comment
+            ).filter(Driver_Review.driver_id == driver_id).all()
+    
     for rating in ratings:
         print(rating)
-        
+
+# sort our drivers by their average rating        
 def sort_by_driver_ratings():
     drivers = session.query(
         Driver_Review.driver_id,
