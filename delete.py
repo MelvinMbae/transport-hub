@@ -42,7 +42,7 @@ Select Task: (eg. Select as 1, 2...)
             click.echo(click.style("Review Deleted Successfully", fg="green"))
             
         case _:
-            click.echo(click.style("Invalid Task Selected"))
+            click.echo(click.style("Invalid Task Selected", fg='red'))
             
 warning_prompt()
 

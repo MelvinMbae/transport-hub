@@ -13,10 +13,12 @@ N. Exit
 
 Select Y/N
 """)
-    if task == "Y" or "y":
+    if task.lower() == "y":
         driver_id = int(input("What is the driver id: "))
         get_rating_by_driver_id(driver_id)
-    elif task == "N" or "n":
-        click.echo("Process exited")
+    elif task.lower() == "n":
+        click.echo(click.style("Process exited", fg='green'))
+    else:
+        click.echo(click.style("Invalid Option Selected", fg='red'))
 
 driver_rating()
