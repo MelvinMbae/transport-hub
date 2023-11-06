@@ -26,6 +26,6 @@ def request_list(option):
             find_all_available_cars()
         case "4":
             driver_id = int(input("What is the driver ID? "))
-            find_car_by_driver_id(driver_id)
+            click.echo(click.style(find_car_by_driver_id(driver_id),fg='green'))
             
 request_list()

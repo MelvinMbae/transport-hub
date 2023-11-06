@@ -29,17 +29,14 @@ Select Task: (eg. Select as 1, 2...)
         case "1":
             car_id=int(input("What car do you want to delete eg.1,2,3 ? "))
             remove_car(car_id)
-            click.echo(click.style("Car Deleted Successfully", fg="green"))
             
         case "2":
             driver_id=int(input("What driver do you want to delete eg.1,2,3 ? "))
             remove_driver(driver_id)
-            click.echo(click.style("Driver Deleted Successfully", fg="green"))
                         
         case "3":
             review_id=int(input("What review do you want to delete eg.1,2,3 ? "))
             remove_review(review_id)
-            click.echo(click.style("Review Deleted Successfully", fg="green"))
             
         case _:
             click.echo(click.style("Invalid Task Selected", fg='red'))

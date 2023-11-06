@@ -47,7 +47,8 @@ def createCar():
             session.add(car1)
             session.commit()
             
-            click.echo(f"{model}, {make} successfully created")
+            click.echo(click.style(f"{model}, {make} successfully created", fg = "green"))
+                       
             
         create_car()
         

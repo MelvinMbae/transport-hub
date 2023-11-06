@@ -1,5 +1,5 @@
 from models import Driver, Driver_Review, Car
-
+import click
 from sqlalchemy.orm import sessionmaker
 
 from sqlalchemy import create_engine, func, desc, text
@@ -16,7 +16,7 @@ def get_all_cars():
     cars = session.query(Car).all()
     
     for car in cars:
-        print(car)
+        click.echo(click.style((car),fg="green"))
 
 # method to return all available cars
 def find_all_available_cars():
@@ -24,7 +24,7 @@ def find_all_available_cars():
     available_cars = cars.filter(Car.availability == 1).all()
     
     for available_car in available_cars:
-        print(available_car)
+        click.echo(click.style((available_car),fg="green"))
 
 #count all available/unavailable cars
 def find_number_of_available_cars(x):
@@ -40,11 +40,11 @@ def find_number_of_available_cars(x):
 # find car a particular by the driver id
 def find_car_by_driver_id(n):
     car = session.query(Car.make, Car.model, Car.color, Car.licence_plate).filter(Car.driver_id == n).first()
-    print(f"""
+    return f"""
 Car make: {car.make}
 model{car.model}
 color:{car.color}
-plate no:{car.licence_plate}""")
+plate no:{car.licence_plate}"""
 
 # monthly revenue of the cars in our db
 def potential_monthly_revenue():
@@ -87,6 +87,8 @@ def remove_car(car_id):
     if car:
         session.delete(car)
         session.commit()
+        click.echo(click.style("Car Deleted Successfully", fg="green"))
+        
     else:
         print("No such car exists.")
     
@@ -96,7 +98,7 @@ def get_all_drivers():
     drivers = session.query(Driver).all()
     
     for driver in drivers:
-        print(driver)
+        click.echo(click.style((driver),fg="green"))
 
 # sorting our drivers by their years of experience
 def sort_by_experience():
@@ -112,6 +114,8 @@ def remove_driver(driver_id):
     if driver:
         session.delete(driver)
         session.commit()
+        click.echo(click.style("Driver Deleted Successfully", fg="green"))
+    
     else:
         print("No such driver exists.")
     
@@ -122,7 +126,7 @@ def get_rating_by_driver_id(driver_id):
             ).filter(Driver_Review.driver_id == driver_id).all()
     
     for rating in ratings:
-        print(rating)
+        click.echo(click.style((rating),fg="green"))
 
 # sort our drivers by their average rating        
 def sort_by_driver_ratings():
@@ -142,5 +146,8 @@ def remove_review(review_id):
     if review:
         session.delete(review)
         session.commit()
+        click.echo(click.style("Review Deleted Successfully", fg="green"))
+        
     else:
         print("No such review exists.")
+        
