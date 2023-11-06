@@ -136,8 +136,11 @@ def sort_by_driver_ratings():
         print(f"Driver ID: {driver_id}, Average Rating: {round(average_rating,2)}")
         
 # Delete a review
-        
-        
-
-        
+def remove_review(review_id):
+    review = session.query(Driver_Review).filter(Driver_Review.id == review_id).first()
     
+    if review:
+        session.delete(review)
+        session.commit()
+    else:
+        print("No such review exists.")
